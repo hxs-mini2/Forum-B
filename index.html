@@ -24,6 +24,8 @@
 			const formElm = document.getElementById("sendMessage");
 			const name = formElm.name.value;
 			const message = formElm.message.value;
+			formElm.name.value = '';
+			formElm.message.value = '';
 			
 			$.ajax({
 				type: "POST",
