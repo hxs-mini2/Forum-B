@@ -8,6 +8,16 @@
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 	<meta charset="utf-8" />
 	<title>掲示板-tb1</title>
+	<?php
+		$data = $_GET['table'];
+		$table = array(
+			"table" => $data[0],
+		);
+	?>
+	<script>
+		var data = <?php json_encode($table); ?>
+		const table = data['table'];
+	</script>
 </head>
 
 <body>
@@ -26,7 +36,6 @@
 	<script>
 		function sendMessage(params) {
 			const formElm = document.getElementById("sendMessage");
-			const table = "tb1";
 			const name = formElm.name.value;
 			const message = formElm.message.value;
 			formElm.name.value = '';
@@ -53,7 +62,10 @@
 <body>
 	<div id="displayArea">
 		<!-- jsファイルを読み込み -->
-		<script src="display.js"></script>
+		<script type="text/javascript">
+			const table = "tb1";
+		</script>
+		<script type="text/javascript" src="display.js"></script>
 	</div>
 </body>
 

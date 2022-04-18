@@ -3,8 +3,7 @@ reload();
 setInterval('reload()', 1000); // 1000ms
 
 function reload() {
-    const table = "tb1";
-
+    
     $.ajax({
         type: "POST",
         url: "Get_C.php",
