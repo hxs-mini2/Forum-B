@@ -18,7 +18,6 @@
 
 	<script type="text/javascript">
 		const table = <?php echo $data[0]; ?>;
-		console.log(table);
 	</script>
 
 	<a href="../index.html">戻る</a>
