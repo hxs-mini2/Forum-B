@@ -32,7 +32,7 @@ class Get_C {
     }
 }
 
-$get_C = new Get_C("tb1");
+$get_C = new Get_C($_POST['table']);
 echo json_encode($get_C->getForum());
 exit
 ?>

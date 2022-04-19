@@ -8,19 +8,18 @@
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 	<meta charset="utf-8" />
 	<title>掲示板-tb1</title>
-	<?php
-		$data = $_GET['table'];
-		$table = array(
-			"table" => $data[0],
-		);
-	?>
-	<script>
-		var data = <?php json_encode($table); ?>
-		const table = data['table'];
-	</script>
 </head>
 
 <body>
+	
+	<?php
+		$data = $_GET['table'];
+	?>
+
+	<script type="text/javascript">
+		const table = <?php echo $data[0]; ?>;
+		console.log(table);
+	</script>
 
 	<a href="../index.html">戻る</a>
 
@@ -33,7 +32,7 @@
 		<textarea name="message"></textarea>
 	</form>
 	<button onClick="sendMessage()">送信</button>
-	<script>
+	<script type="text/javascript">
 		function sendMessage(params) {
 			const formElm = document.getElementById("sendMessage");
 			const name = formElm.name.value;
@@ -62,9 +61,6 @@
 <body>
 	<div id="displayArea">
 		<!-- jsファイルを読み込み -->
-		<script type="text/javascript">
-			const table = "tb1";
-		</script>
 		<script type="text/javascript" src="display.js"></script>
 	</div>
 </body>
