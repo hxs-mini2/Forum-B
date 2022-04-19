@@ -3,9 +3,11 @@ reload();
 setInterval('reload()', 1000); // 1000ms
 
 function reload() {
+    
     $.ajax({
         type: "POST",
-        url: "get.php",
+        url: "Get_C.php",
+        data : {'table' : table},
         dataType: "json",
     }).done(function (data) { // 成功時
         displayArea.innerHTML = "<br>";

@@ -12,6 +12,14 @@
 
 <body>
 	
+	<?php
+		$data = $_GET['table'];
+	?>
+
+	<script type="text/javascript">
+		const table = <?php echo $data[0]; ?>;
+	</script>
+
 	<a href="../index.html">戻る</a>
 
 	<br><br>
@@ -23,7 +31,7 @@
 		<textarea name="message"></textarea>
 	</form>
 	<button onClick="sendMessage()">送信</button>
-	<script>
+	<script type="text/javascript">
 		function sendMessage(params) {
 			const formElm = document.getElementById("sendMessage");
 			const name = formElm.name.value;
@@ -33,8 +41,9 @@
 			
 			$.ajax({
 				type: "POST",
-				url: "sub.php",
-				data: {"name" : name, 
+				url: "Send_C.php",
+				data: {"table" : table,
+					   "name" : name, 
 					   "message" : message}
 			}).done(function(){
 			}).fail(function (XMLHttpRequest, textStatus, errorThrown) {
@@ -51,7 +60,7 @@
 <body>
 	<div id="displayArea">
 		<!-- jsファイルを読み込み -->
-		<script src="display.js"></script>
+		<script type="text/javascript" src="display.js"></script>
 	</div>
 </body>
 
