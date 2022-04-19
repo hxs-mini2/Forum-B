@@ -20,7 +20,7 @@
 		const table = <?php echo $data[0]; ?>;
 	</script>
 
-	<a href="../index.html">戻る</a>
+	<a href="../index.php">戻る</a>
 
 	<br><br>
 
