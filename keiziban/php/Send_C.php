@@ -9,8 +9,8 @@ class Send_C {
 	public $message;
 
     public function __construct($table) {
-        require dirname(__FILE__).'/../vendor/autoload.php';
-        Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
+        require dirname(__FILE__).'/../../vendor/autoload.php';
+        Dotenv\Dotenv::createImmutable(__DIR__.'/../..')->load();
         $this->host = $_ENV['HOST'];
         $this->DBname = $_ENV['DBNAME'];
         $this->table = $table;

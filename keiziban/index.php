@@ -41,7 +41,7 @@
 			
 			$.ajax({
 				type: "POST",
-				url: "Send_C.php",
+				url: "http://150.89.253.73/b21119/Forum-B/keiziban/php/Send_C.php",
 				data: {"table" : table,
 					   "name" : name, 
 					   "message" : message}
@@ -60,7 +60,7 @@
 <body>
 	<div id="displayArea">
 		<!-- jsファイルを読み込み -->
-		<script type="text/javascript" src="display.js"></script>
+		<script type="text/javascript" src="js/display.js"></script>
 	</div>
 </body>
 
