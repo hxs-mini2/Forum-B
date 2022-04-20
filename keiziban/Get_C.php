@@ -7,8 +7,8 @@ class Get_C {
     public $passwd;
 
     public function __construct($table) {
-        require './vendor/autoload.php';
-        Dotenv\Dotenv::createImmutable(__DIR__)->load();
+        require dirname(__FILE__).'/../vendor/autoload.php';
+        Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
         $this->host = $_ENV['HOST'];
         $this->DBname = $_ENV['DBNAME'];
         $this->table = $table;
