@@ -26,7 +26,7 @@
 		echo "<tr><th>NO.</th><td>掲示板一覧</td></tr>";
 		$count = 1;
 		foreach ($data as $value) {
-			echo "<tr><th>$count</th><td><a href=\"keiziban/index.php?table%5B%5D='$value'\">$value</a></td></tr>";
+			echo "<tr><th>$count</th><td><a href=\"keiziban/index.php?table%5B%5D=$value\">$value</a></td></tr>";
 			$count++;
 		}
 		echo "</table>";

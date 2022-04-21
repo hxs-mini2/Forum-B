@@ -7,25 +7,27 @@
 	<!-- jqueryを読み込み -->
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 	<meta charset="utf-8" />
-	<title>掲示板-tb1</title>
-</head>
 
-<body>
-	
 	<?php
 		require dirname(__FILE__).'/../vendor/autoload.php';
         Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
-		$data = $_GET['table'];
+		$table = $_GET['table'][0];
 	?>
 
 	<script type="text/javascript">
-		const table = <?= $data[0]; ?>; 
+		const table = <?= "'" . $table . "'"; ?>; 
 		const homeURL = <?= "\"".$_ENV['HOMEURL']."\"" ?>;
 	</script>
 
+	<title>掲示板-<?= $table; ?></title>
+</head>
+
+<body>
+	<h1><?= $table; ?></h1>
+
 	<a href="../index.php">戻る</a>
 
-	<br><br>
+	<br>
 
 	<form id="sendMessage">
 		<p>名前</p>
@@ -56,11 +58,9 @@
 			});
 		}
 	</script>
-	<br><br>
 
-</body>
+	<br><br><br>
 
-<body>
 	<div id="displayArea">
 		<!-- jsファイルを読み込み -->
 		<script type="text/javascript" src="js/display.js"></script>
