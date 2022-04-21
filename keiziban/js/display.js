@@ -6,7 +6,7 @@ function reload() {
     
     $.ajax({
         type: "POST",
-        url: "Get_C.php",
+        url: `http://${homeURL}keiziban/php/Get_C.php`,
         data : {'table' : table},
         dataType: "json",
     }).done(function (data) { // 成功時
