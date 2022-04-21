@@ -13,11 +13,14 @@
 <body>
 	
 	<?php
+		require dirname(__FILE__).'/../vendor/autoload.php';
+        Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
 		$data = $_GET['table'];
 	?>
 
 	<script type="text/javascript">
-		const table = <?php echo $data[0]; ?>;
+		const table = <?= $data[0]; ?>; 
+		const homeURL = <?= "\"".$_ENV['HOMEURL']."\"" ?>;
 	</script>
 
 	<a href="../index.php">戻る</a>
@@ -41,7 +44,7 @@
 			
 			$.ajax({
 				type: "POST",
-				url: "http://150.89.253.73/b21119/Forum-B/keiziban/php/Send_C.php",
+				url: `http://${homeURL}keiziban/php/Send_C.php`,
 				data: {"table" : table,
 					   "name" : name, 
 					   "message" : message}
