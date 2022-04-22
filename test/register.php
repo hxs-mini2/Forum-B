@@ -10,11 +10,11 @@ $user = $_ENV['USER'];
 $passwd = $_ENV['PASSWD'];
 
 $db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-$n = $db->query("SELECT * FROM user WHERE mail = $mail");
+$n = $db->query("SELECT * FROM user WHERE 'mail' = '$mail' OR 'name' = '$name'");
 
 $i = $n->fetch();
-if (!empty($i['mail'])) {
-    echo "同じメールアドレスが存在します。<br>";
+if (!empty($i['mail']) || !empty($i['name'])) {
+    echo "同じメールアドレスまたは，同じユーザIDが存在します。<br>";
 } else {
     try {
         $db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
