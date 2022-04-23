@@ -1,8 +1,8 @@
 <h1>ログインページ</h1>
 <form action="login.php" method="post">
 <div>
-    <label>メールアドレス：<label>
-    <input type="text" name="mail" required>
+    <label>ユーザID：<label>
+    <input type="text" name="name" required>
 </div>
 <div>
     <label>パスワード：<label>
