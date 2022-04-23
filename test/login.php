@@ -21,6 +21,19 @@ if (password_verify($_POST['pass'], $member['pass'])) {
     echo '<a href="index.php">ホーム</a>';
 } else {
     echo 'メールアドレスもしくはパスワードが間違っています。';
+    echo "<h1>ログインページ（再）</h1>";
+    echo "<form action='login.php' method='post'>";
+    echo "<div>";
+    echo "<label>ユーザID：<label>";
+    echo "<input type='text' name='name' required>";
+    echo "</div>";
+    echo "<div>";
+    echo "<label>パスワード：<label>";
+    echo "<input type='password' name='pass' required>";
+    echo "</div>";
+    echo "<input type='submit' value='ログイン'>";
+    echo "</form>";
+
     echo '<a href="login.php">戻る</a>';
 }
 ?>
