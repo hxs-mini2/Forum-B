@@ -18,6 +18,10 @@ if (!empty($i['mail']) || !empty($i['name'])) {
     echo "同じメールアドレスまたは，同じユーザIDが存在します。<br>";
 } else {
     $rand = mt_rand(100000, 999999);
+    $_SESSION['name'] = $name;
+    $_SESSION['mail'] = $mail;
+    $_SESSION['pass'] = $pass;
+    $_SESSION['code'] = $rand;
 
     mb_language("Japanese");
     mb_internal_encoding("UTF-8");
@@ -32,6 +36,14 @@ if (!empty($i['mail']) || !empty($i['name'])) {
     } else {
         echo "メール送信失敗です";
     }
+
+    echo "<h1>メール承認</h1>";
+    echo "<form action='mail.php' method='post'>";
+    echo "入力されたメールアドレスあてに承認コードを送信しました．<br><br>";
+    echo "<label>コード</label><br>";
+    echo "<input type='text' name='code' required>";
+    echo "<input type='submit' value='確認'>";
+    echo "</form>";
 }
 
 echo "<br><br>";
