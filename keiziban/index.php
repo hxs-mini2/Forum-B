@@ -9,9 +9,15 @@
 	<meta charset="utf-8" />
 
 	<?php
-		require dirname(__FILE__).'/../vendor/autoload.php';
-        Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
-		$table = $_GET['table'][0];
+		session_start();
+		if (isset($_SESSION['id'])) {
+			require dirname(__FILE__).'/../vendor/autoload.php';
+    	    Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
+			$table = $_GET['table'][0];
+		} else {
+			header("Location: ../index.php");
+			exit;
+		}
 	?>
 
 	<script type="text/javascript">
