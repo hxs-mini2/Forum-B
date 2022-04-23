@@ -10,6 +10,11 @@
 
 	<?php
         session_start();
+		echo "運良くこのページにたどり着いた方へ<br>";
+		echo "おめでとう！！<br>";
+		echo "ただ，このページはまだ開発中のものなのでアカウント等を作っても意味はほとんどありません．<br>";
+		echo "何かあればHxSコンピュータ部までどうぞ";
+		echo "<br><br>";
 		require './vendor/autoload.php';
 		Dotenv\Dotenv::createImmutable(__DIR__)->load();
 		$host = $_ENV['HOST'];
