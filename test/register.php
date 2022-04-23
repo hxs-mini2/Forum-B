@@ -11,7 +11,7 @@ $user = $_ENV['USER'];
 $passwd = $_ENV['PASSWD'];
 
 $db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-$n = $db->query("SELECT * FROM user WHERE 'mail' = '$mail' OR 'name' = '$name'");
+$n = $db->query("SELECT * FROM user WHERE mail = '$mail' OR name = '$name'");
 
 $i = $n->fetch();
 if (!empty($i['mail']) || !empty($i['name'])) {
