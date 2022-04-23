@@ -35,6 +35,6 @@ if ($rand == $otp) {
     echo "</form>";
 }
 
-echo "<a href='index.php'>ホームへ</a>";
+echo "<a href='../index.php'>ホームへ</a>";
 
 ?>

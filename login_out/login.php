@@ -18,7 +18,8 @@ if (password_verify($_POST['pass'], $member['pass'])) {
     $_SESSION['id'] = $member['id'];
     $_SESSION['name'] = $member['name'];
     echo 'ログインしました。';
-    echo '<a href="index.php">ホーム</a>';
+    echo "<br>";
+    echo '<a href="../index.php">ホーム</a>';
 } else {
     echo 'メールアドレスもしくはパスワードが間違っています。';
     echo "<h1>ログインページ（再）</h1>";
@@ -35,5 +36,7 @@ if (password_verify($_POST['pass'], $member['pass'])) {
     echo "</form>";
 
     echo '<a href="login.php">戻る</a>';
+    echo "<br>";
+    echo "<a href='../index.php'>ホーム</a>";
 }
 ?>

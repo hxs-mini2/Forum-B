@@ -10,3 +10,5 @@
 </div>
 <input type="submit" value="ログイン">
 </form>
+
+<a href="../index.php">ホーム</a>
