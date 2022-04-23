@@ -48,4 +48,6 @@ if (!empty($i['mail']) || !empty($i['name'])) {
 
 echo "<br><br>";
 echo "<a href='signup.php'>戻る</a>";
+echo "<br>";
+echo "<a href='../index.php'>ホーム</a>"
 ?>
