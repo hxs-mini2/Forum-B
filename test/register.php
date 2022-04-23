@@ -26,7 +26,7 @@ if (!empty($i['mail']) || !empty($i['name'])) {
     mb_language("Japanese");
     mb_internal_encoding("UTF-8");
 
-    $to = $mail;
+    $to = $mail."@st.oit.ac.jp";
     $title = 'HxS掲示板・新規登録';
     $message = 'コード : '.$rand;
     $headers = "From: hoge21119@gmail.com";
