@@ -6,6 +6,7 @@ $host = $_ENV['HOST'];
 $DBname = $_ENV['DBACCOUNT'];
 $user = $_ENV['USER'];
 $passwd = $_ENV['PASSWD'];
+$id = $_COOKIE['PHPSESSID'];
 $name = $_SESSION['name'];
 $mail = $_SESSION['mail'];
 $pass = $_SESSION['pass'];
@@ -18,7 +19,7 @@ if ($rand == $otp) {
 
     try {
         $db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-        $db->query("INSERT INTO user(no, name, mail, pass) VALUES(NULL, '$name', '$mail', '$pass')");
+        $db->query("INSERT INTO user(no, id, name, mail, pass) VALUES(NULL, '$id', '$name', '$mail', '$pass')");
         echo "<br>登録できました．<br>";		
     } catch (Exception $e) {
         echo "<br>登録できませんでした．<br>";
