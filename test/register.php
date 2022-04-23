@@ -3,7 +3,7 @@ session_start();
 require dirname(__FILE__).'/../vendor/autoload.php';
 Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
 $name = $_POST['name'];
-$mail = $_POST['mail'];
+$mail = $_POST['mail']."@st.oit.ac.jp";
 $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 $host = $_ENV['HOST'];
 $DBname = $_ENV['DBACCOUNT'];
@@ -11,7 +11,7 @@ $user = $_ENV['USER'];
 $passwd = $_ENV['PASSWD'];
 
 $db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-$n = $db->query("SELECT * FROM user WHERE 'mail' = '$mail' OR 'name' = '$name'");
+$n = $db->query("SELECT * FROM user WHERE mail = '$mail' OR name = '$name'");
 
 $i = $n->fetch();
 if (!empty($i['mail']) || !empty($i['name'])) {
