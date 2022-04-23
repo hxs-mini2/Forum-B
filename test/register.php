@@ -39,7 +39,7 @@ if (!empty($i['mail']) || !empty($i['name'])) {
 
     echo "<h1>メール承認</h1>";
     echo "<form action='mail.php' method='post'>";
-    echo "入力されたメールアドレスあてに承認コードを送信しました．<br><br>";
+    echo "入力されたメールアドレス宛てに承認コードを送信しました．<br><br>";
     echo "<label>コード</label><br>";
     echo "<input type='text' name='code' required>";
     echo "<input type='submit' value='確認'>";
