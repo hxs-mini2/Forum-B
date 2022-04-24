@@ -18,11 +18,17 @@ if ($rand == $otp) {
 	$_POST = array();
 
     try {
-        $db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-        $db->query("INSERT INTO user(no, id, name, mail, pass) VALUES(NULL, '$id', '$name', '$mail', '$pass')");
+        $pdo = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
+        $stmt = $pdo->prepare("INSERT INTO user(no, id, name, mail, pass) VALUES(NULL, :id, :name, :mail, :pass)");
+        $stmt->bindValue(':id', $id);
+        $stmt->bindValue(':name', $name);
+        $stmt->bindValue(':mail', $mail);
+        $stmt->bindValue(':pass', $pass);
+        $stmt->execute();
         echo "<br>登録できました．<br>";		
     } catch (Exception $e) {
         echo "<br>登録できませんでした．<br>";
+        exit;
     }
 
 } else {

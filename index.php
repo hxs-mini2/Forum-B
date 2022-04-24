@@ -24,10 +24,16 @@
 		
         if (isset($_SESSION['id'])) {
         $username = htmlspecialchars($_SESSION['name'], ENT_QUOTES, 'UTF-8');
-		$db = new PDO("mysql:host=$host;dbname=$DBname", "$user", "$passwd");
-    	$n = $db->query("SHOW TABLES");
-		while ($i = $n->fetch()) {
-			$data[] = htmlspecialchars($i[0], ENT_QUOTES, 'UTF-8');
+		try {
+			$pdo = new PDO("mysql:host=$host;dbname=$DBname", "$user", "$passwd");
+			$stmt = $pdo->prepare("SHOW TABLES");
+			$stmt->execute();
+		} catch (Exception $e) {
+			exit;
+		}
+
+		while ($response = $stmt->fetch()) {
+			$data[] = htmlspecialchars($response[0], ENT_QUOTES, 'UTF-8');
 		}
         
         echo "<h1>ようこそ $username さん</h1>";

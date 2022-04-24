@@ -10,11 +10,18 @@ $DBname = htmlspecialchars($_ENV['DBACCOUNT'], ENT_QUOTES, 'UTF-8');
 $user = htmlspecialchars($_ENV['USER'], ENT_QUOTES, 'UTF-8');
 $passwd = htmlspecialchars($_ENV['PASSWD'], ENT_QUOTES, 'UTF-8');
 
-$db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-$n = $db->query("SELECT * FROM user WHERE mail = '$mail' OR name = '$name'");
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE mail = :mail OR name = :name");
+    $stmt->bindValue(':mail', $mail);
+    $stmt->bindValue(':name', $name);
+    $stmt->execute();
+} catch (Exception $e) {
+    exit;
+}
 
-$i = $n->fetch();
-if (!empty($i['mail']) || !empty($i['name'])) {
+$responnse = $stmt->fetch();
+if (!empty($response['mail']) || !empty($response['name'])) {
     echo "同じメールアドレスまたは，同じユーザIDが存在します。<br>";
 } else {
     $rand = mt_rand(100000, 999999);

@@ -17,14 +17,20 @@ class Get_C {
     }
 
     public function getForum() {
-        $db = new PDO("mysql:host=$this->host;dbname=$this->DBname", $this->user, $this->passwd);
-        $n = $db->query("SELECT * FROM $this->table ORDER BY no DESC");
-        while ($i = $n->fetch()) {
-            $data[$i['no']] = array(
-                "no" => htmlspecialchars($i['no'], ENT_QUOTES, 'UTF-8'),
-                "name" => htmlspecialchars($i['name'], ENT_QUOTES, 'UTF-8'),
-                "time" => htmlspecialchars($i['time'], ENT_QUOTES, 'UTF-8'),
-                "message" => htmlspecialchars($i['message'], ENT_QUOTES, 'UTF-8')
+        try {
+            $pdo = new PDO("mysql:host=$this->host;dbname=$this->DBname", $this->user, $this->passwd);
+            $stmt = $pdo->prepare("SELECT * FROM $this->table ORDER BY no DESC");
+            $stmt->execute();
+        } catch (Exception $e) {
+            exit;
+        }
+
+        while ($response = $stmt->fetch()) {
+            $data[$response['no']] = array(
+                "no" => htmlspecialchars($response['no'], ENT_QUOTES, 'UTF-8'),
+                "name" => htmlspecialchars($response['name'], ENT_QUOTES, 'UTF-8'),
+                "time" => htmlspecialchars($response['time'], ENT_QUOTES, 'UTF-8'),
+                "message" => htmlspecialchars($response['message'], ENT_QUOTES, 'UTF-8')
             );
         }
         

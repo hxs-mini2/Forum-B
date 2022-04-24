@@ -23,11 +23,15 @@ class Send_C {
 			$name = htmlspecialchars($_POST["name"], ENT_QUOTES, 'UTF-8');
 			$message = htmlspecialchars($_POST["message"], ENT_QUOTES, 'UTF-8');
 		
-			$db = new PDO("mysql:host=$this->host;dbname=$this->DBname", $this->user, $this->passwd);
-		
-			$db->query("INSERT INTO $this->table(no, name, message, time)
-					VALUES(NULL, '$name', '$message', NOW())");
-		
+            try {
+		    	$pdo = new PDO("mysql:host=$this->host;dbname=$this->DBname", $this->user, $this->passwd);
+	    		$stmt = $pdo->prepare("INSERT INTO $this->table(no, name, message, time) VALUES(NULL, :name, :message, NOW())");
+                $stmt->bindValue(':name', $name);
+                $stmt->bindValue(':message', $message);
+                $stmt->execute();
+            } catch (Exception $e) {
+                exit;
+            }
 		} else {
 		}
     }
