@@ -2,19 +2,26 @@
 session_start();
 require dirname(__FILE__).'/../vendor/autoload.php';
 Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
-$name = $_POST['name'];
-$mail = $_POST['mail']."@st.oit.ac.jp";
-$pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
-$host = $_ENV['HOST'];
-$DBname = $_ENV['DBACCOUNT'];
-$user = $_ENV['USER'];
-$passwd = $_ENV['PASSWD'];
+$name = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
+$mail = htmlspecialchars($_POST['mail']."@st.oit.ac.jp", ENT_QUOTES, 'UTF-8');
+$pass = password_hash(htmlspecialchars($_POST['pass'], ENT_QUOTES, 'UTF-8'), PASSWORD_DEFAULT);
+$host = htmlspecialchars($_ENV['HOST'], ENT_QUOTES, 'UTF-8');
+$DBname = htmlspecialchars($_ENV['DBACCOUNT'], ENT_QUOTES, 'UTF-8');
+$user = htmlspecialchars($_ENV['USER'], ENT_QUOTES, 'UTF-8');
+$passwd = htmlspecialchars($_ENV['PASSWD'], ENT_QUOTES, 'UTF-8');
 
-$db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-$n = $db->query("SELECT * FROM user WHERE mail = '$mail' OR name = '$name'");
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE mail = :mail OR name = :name");
+    $stmt->bindValue(':mail', $mail);
+    $stmt->bindValue(':name', $name);
+    $stmt->execute();
+} catch (Exception $e) {
+    exit;
+}
 
-$i = $n->fetch();
-if (!empty($i['mail']) || !empty($i['name'])) {
+$responnse = $stmt->fetch();
+if (!empty($response['mail']) || !empty($response['name'])) {
     echo "同じメールアドレスまたは，同じユーザIDが存在します。<br>";
 } else {
     $rand = mt_rand(100000, 999999);

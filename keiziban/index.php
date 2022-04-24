@@ -13,7 +13,7 @@
 		if (isset($_SESSION['id'])) {
 			require dirname(__FILE__).'/../vendor/autoload.php';
     	    Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
-			$table = $_GET['table'][0];
+			$table = htmlspecialchars($_GET['table'][0], ENT_QUOTES, 'UTF-8');
 		} else {
 			header("Location: ../index.php");
 			exit;
@@ -22,7 +22,7 @@
 
 	<script type="text/javascript">
 		const table = <?= "'" . $table . "'"; ?>; 
-		const homeURL = <?= "\"".$_ENV['HOMEURL']."\"" ?>;
+		const homeURL = <?= "\"".htmlspecialchars($_ENV['HOMEURL'], ENT_QUOTES, 'UTF-8')."\"" ?>;
 	</script>
 
 	<title>掲示板-<?= $table; ?></title>

@@ -2,21 +2,27 @@
 session_start();
 require dirname(__FILE__).'/../vendor/autoload.php';
 Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
-$name = $_POST['name'];
-$host = $_ENV['HOST'];
-$DBname = $_ENV['DBACCOUNT'];
-$user = $_ENV['USER'];
-$passwd = $_ENV['PASSWD'];
+$name = htmlspecialchars($_POST['name'], ENT_QUOTES, 'UTF-8');
+$host = htmlspecialchars($_ENV['HOST'], ENT_QUOTES, 'UTF-8');
+$DBname = htmlspecialchars($_ENV['DBACCOUNT'], ENT_QUOTES, 'UTF-8');
+$user = htmlspecialchars($_ENV['USER'], ENT_QUOTES, 'UTF-8');
+$passwd = htmlspecialchars($_ENV['PASSWD'], ENT_QUOTES, 'UTF-8');
 
-$db = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
-$n = $db->query("SELECT * FROM user WHERE name = '$name'");
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
+    $stmt = $pdo->prepare("SELECT * FROM user WHERE name = :name");
+    $stmt->bindValue(':name', $name);
+    $stmt->execute();
+} catch (Exception $e) {
+    exit;
+}
 
-$member = $n->fetch();
+$response = $stmt->fetch();
 //指定したハッシュがパスワードにマッチしているかチェック
-if (password_verify($_POST['pass'], $member['pass'])) {
+if (password_verify(htmlspecialchars($_POST['pass'], ENT_QUOTES, 'UTF-8'), $response['pass'])) {
     //DBのユーザー情報をセッションに保存
-    $_SESSION['id'] = $member['id'];
-    $_SESSION['name'] = $member['name'];
+    $_SESSION['id'] = htmlspecialchars($response['id'], ENT_QUOTES, 'UTF-8');
+    $_SESSION['name'] = htmlspecialchars($response['name'], ENT_QUOTES, 'UTF-8');
     echo 'ログインしました。';
     echo "<br>";
     echo '<a href="../index.php">ホーム</a>';
