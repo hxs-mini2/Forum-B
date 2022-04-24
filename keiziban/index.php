@@ -45,8 +45,8 @@
 	<script type="text/javascript">
 		function sendMessage(params) {
 			const formElm = document.getElementById("sendMessage");
-			const name = formElm.name.value;
-			const message = formElm.message.value;
+			const name = htmlspecialchars(formElm.name.value);
+			const message = htmlspecialchars(formElm.message.value);
 			formElm.name.value = '';
 			formElm.message.value = '';
 			
@@ -62,6 +62,14 @@
 				console.log(textStatus);
 				console.log(errorThrown.message);
 			});
+		}
+
+		function htmlspecialchars(str){
+  			return (str + '').replace(/&/g,'&amp;')
+                   .replace(/"/g,'&quot;')
+                   .replace(/'/g,'&#039;')
+                   .replace(/</g,'&lt;')
+                   .replace(/>/g,'&gt;'); 
 		}
 	</script>
 
