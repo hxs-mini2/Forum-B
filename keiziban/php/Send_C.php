@@ -11,17 +11,17 @@ class Send_C {
     public function __construct($table) {
         require dirname(__FILE__).'/../../vendor/autoload.php';
         Dotenv\Dotenv::createImmutable(__DIR__.'/../..')->load();
-        $this->host = $_ENV['HOST'];
-        $this->DBname = $_ENV['DBNAME'];
-        $this->table = $table;
-        $this->user = $_ENV['USER'];
-        $this->passwd = $_ENV['PASSWD'];
+        $this->host = htmlspecialchars($_ENV['HOST'], ENT_QUOTES, 'UTF-8');
+        $this->DBname = htmlspecialchars($_ENV['DBNAME'], ENT_QUOTES, 'UTF-8');
+        $this->table = htmlspecialchars($table, ENT_QUOTES, 'UTF-8');
+        $this->user = htmlspecialchars($_ENV['USER'], ENT_QUOTES, 'UTF-8');
+        $this->passwd = htmlspecialchars($_ENV['PASSWD'], ENT_QUOTES, 'UTF-8');
     }
 
     public function SendMessages() {
 		if (!empty($_POST["name"]) && !empty($_POST["message"])) {
-			$name = htmlspecialchars($_POST["name"], ENT_QUOTES);
-			$message = htmlspecialchars($_POST["message"], ENT_QUOTES);
+			$name = htmlspecialchars($_POST["name"], ENT_QUOTES, 'UTF-8');
+			$message = htmlspecialchars($_POST["message"], ENT_QUOTES, 'UTF-8');
 		
 			$db = new PDO("mysql:host=$this->host;dbname=$this->DBname", $this->user, $this->passwd);
 		
@@ -33,7 +33,7 @@ class Send_C {
     }
 }
 
-$send_C = new Send_C($_POST['table']);
+$send_C = new Send_C(htmlspecialchars($_POST['table']), ENT_QUOTES, 'UTF-8');
 $send_C->SendMessages();
 exit;
 ?>
