@@ -4,9 +4,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- jqueryを読み込み -->
-	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-	<meta charset="utf-8" />
 
 	<?php
 		session_start();
@@ -18,7 +15,13 @@
 			header("Location: ../index.php");
 			exit;
 		}
+		$url = $_ENV['HOMEURL'];
 	?>
+
+	<!-- jqueryを読み込み -->
+	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+	<script src="http://<?=$url?>keiziban/js/jQuery_ajax.js"></script>
+	<meta charset="utf-8" />
 
 	<script type="text/javascript">
 		const table = <?= "'" . $table . "'"; ?>; 
@@ -42,34 +45,10 @@
 		<textarea name="message"></textarea>
 	</form>
 	<button onClick="sendMessage()">送信</button>
-	<script type="text/javascript">
-		function sendMessage(params) {
-			const formElm = document.getElementById("sendMessage");
-			const name = formElm.name.value;
-			const message = formElm.message.value;
-			formElm.name.value = '';
-			formElm.message.value = '';
-			
-			$.ajax({
-				type: "POST",
-				url: `http://${homeURL}keiziban/php/Send_C.php`,
-				data: {"table" : table,
-					   "name" : name, 
-					   "message" : message}
-			}).done(function(){
-			}).fail(function (XMLHttpRequest, textStatus, errorThrown) {
-				console.log(XMLHttpRequest.status);
-				console.log(textStatus);
-				console.log(errorThrown.message);
-			});
-		}
-	</script>
-
 	<br><br><br>
 
 	<div id="displayArea">
-		<!-- jsファイルを読み込み -->
-		<script type="text/javascript" src="js/display.js"></script>
+		<script>reload()</script>
 	</div>
 </body>
 
