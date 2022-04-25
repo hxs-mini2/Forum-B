@@ -26,8 +26,8 @@ class Send_C {
             try {
 		    	$pdo = new PDO("mysql:host=$this->host;dbname=$this->DBname", $this->user, $this->passwd);
 	    		$stmt = $pdo->prepare("INSERT INTO $this->table(no, name, message, time) VALUES(NULL, :name, :message, NOW())");
-                $stmt->bindValue(':name', $name);
-                $stmt->bindValue(':message', $message);
+                $stmt->bindValue(':name', htmlspecialchars_decode($name, ENT_QUOTES));
+                $stmt->bindValue(':message', htmlspecialchars_decode($message, ENT_QUOTES));
                 $stmt->execute();
             } catch (Exception $e) {
                 exit;
