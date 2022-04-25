@@ -13,8 +13,8 @@ $passwd = htmlspecialchars($_ENV['PASSWD'], ENT_QUOTES, 'UTF-8');
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
     $stmt = $pdo->prepare("SELECT * FROM user WHERE mail = :mail OR name = :name");
-    $stmt->bindValue(':mail', $mail);
-    $stmt->bindValue(':name', $name);
+    $stmt->bindValue(':mail', htmlspecialchars_decode($mail, ENT_QUOTES));
+    $stmt->bindValue(':name', htmlspecialchars_decode($name, ENT_QUOTES));
     $stmt->execute();
 } catch (Exception $e) {
     exit;

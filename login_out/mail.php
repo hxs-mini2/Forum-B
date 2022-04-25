@@ -21,9 +21,9 @@ if ($rand == $otp) {
         $pdo = new PDO("mysql:host=$host;dbname=$DBname", $user, $passwd);
         $stmt = $pdo->prepare("INSERT INTO user(no, id, name, mail, pass) VALUES(NULL, :id, :name, :mail, :pass)");
         $stmt->bindValue(':id', $id);
-        $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':mail', $mail);
-        $stmt->bindValue(':pass', $pass);
+        $stmt->bindValue(':name', htmlspecialchars_decode($name, ENT_QUOTES));
+        $stmt->bindValue(':mail', htmlspecialchars_decode($mail, ENT_QUOTES));
+        $stmt->bindValue(':pass', htmlspecialchars_decode($pass, ENT_QUOTES));
         $stmt->execute();
         echo "<br>登録できました．<br>";		
     } catch (Exception $e) {
